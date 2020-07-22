@@ -1,0 +1,66 @@
+{
+  "THERMOMETER23": {
+    "setpoint": 20.0,
+    "deadband": 0.5
+  },
+  "THERMOMETER41": {
+    "setpoint": 20.0,
+    "deadband": 0.5
+  },
+  "THERMOMETER31": {
+    "setpoint": 20.0,
+    "deadband": 0.5
+  },
+  "THERMOMETER21": {
+    "setpoint": 20.0,
+    "deadband": 0.5
+  },
+  "THERMOMETER11": {
+    "setpoint": 20.0,
+    "deadband": 0.5
+  },
+  "THERMOMETER42": {
+    "setpoint": 20.0,
+    "deadband": 0.5
+  },
+  "THERMOMETER32": {
+    "setpoint": 20.0,
+    "deadband": 0.5
+  },
+  "THERMOMETER22": {
+    "setpoint": 20.0,
+    "deadband": 0.5
+  },
+  "THERMOMETER12": {
+    "setpoint": 20.0,
+    "deadband": 0.5
+  },
+  "THERMOMETER43": {
+    "setpoint": 20.0,
+    "deadband": 0.5
+  },
+  "THERMOMETER33": {
+    "setpoint": 20.0,
+    "deadband": 0.5
+  },
+  "THERMOMETER13": {
+    "setpoint": 20.0,
+    "deadband": 0.5
+  },
+  "THERMOMETER44": {
+    "setpoint": 20.0,
+    "deadband": 0.5
+  },
+  "THERMOMETER34": {
+    "setpoint": 20.0,
+    "deadband": 0.5
+  },
+  "THERMOMETER24": {
+    "setpoint": 20.0,
+    "deadband": 0.5
+  },
+  "THERMOMETER14": {
+    "setpoint": 20.0,
+    "deadband": 0.5
+  }
+}
