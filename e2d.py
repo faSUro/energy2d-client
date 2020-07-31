@@ -103,13 +103,25 @@ def get_thermometers_name_from_server(client_socket, server_address_port):
 
     return thermometers
 
+daysInAWeek = 7
+hoursInADay = 24
+
 
 def build_default_thermostat_dict(thermometers):
     thermostats = {}
+    week_program = {}
+    day_program = {}
+
+    for h in range(hoursInADay):
+        day_program[h] = 20.0
+
+    for d in range(daysInAWeek):
+        week_program[d] = day_program
+
     for t in thermometers:
         thermostats[t] = {
-            "setpoint": 20.0,
-            "deadband": 0.5
+            "deadband": 0.5,
+            "program": week_program
         }
     return thermostats
 

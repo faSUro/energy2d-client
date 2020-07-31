@@ -1,5 +1,4 @@
 import json
-import os
 import matplotlib.pyplot as plt
 import csv
 import e2d
