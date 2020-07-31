@@ -22,9 +22,9 @@ writer.writeheader()
 
 e2d.send_message(UDPClientSocket, serverAddressPort, e2d.set_steplength_command(args.steplength))  # setta steplength
 e2d.send_message(UDPClientSocket, serverAddressPort, e2d.reset_command())  # resetta la simulazione
-e2d.send_message(UDPClientSocket, serverAddressPort, e2d.run_command(1))  # esegue la simulazione per un secondo,
+e2d.send_message(UDPClientSocket, serverAddressPort, e2d.runsteps_command(100))  # esegue la simulazione per un secondo,
 # tempo necessario affinché i termometri rilevino una temperatura valida
-step = 0
+step = 100
 while step < args.steps:  # ciclo principale che esegue la simulazione e raccoglie dati
     e2d.send_message(UDPClientSocket, serverAddressPort, e2d.runsteps_command(str(args.steplength)))
 
@@ -37,7 +37,7 @@ while step < args.steps:  # ciclo principale che esegue la simulazione e raccogl
         if thermometerName.startswith(e2d.thermometerPrefix):
             temperature = tSplit[1]
             if thermometerName != "THERMOMETER_EXTERNAL":
-                thermostats.get(thermometerName).update(UDPClientSocket, serverAddressPort, temperature)
+                thermostats.get(thermometerName).update(UDPClientSocket, serverAddressPort, temperature, time=e2d.get_time(step, args.steplength))
 
                 fileRow[thermometerName] = thermostats.get(thermometerName).temperature
                 fileRow[e2d.get_heater_name(thermometerName)] = thermostats.get(thermometerName).heaterIsOn

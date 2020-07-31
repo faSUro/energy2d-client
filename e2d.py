@@ -1,7 +1,6 @@
 import json
 import os
 
-
 thermometerPrefix = "THERMOMETER"
 heaterPrefix = "HEATER"
 
@@ -56,16 +55,42 @@ def initialize_data_columns(thermostats):
     return columns
 
 
+secondsInAMinute = 60
+minutesInAnHour = 60
+hoursInADay = 24
+daysInAWeek = 7
+
+
+def get_time(step, steplength):
+    seconds_from_start = step * steplength
+    minutes_from_start = seconds_from_start / secondsInAMinute
+    hours_from_start = int(minutes_from_start / minutesInAnHour)
+    days_from_start = int(hours_from_start / hoursInADay)
+
+    day = days_from_start % daysInAWeek
+    hour = hours_from_start % hoursInADay
+
+    time = (day, hour)
+    print(time)
+    return time
+
+
 class Thermostat:  # classe che rappresenta il termostato
-    def __init__(self, thermometer_name, setpoint, deadband):
+    def __init__(self, thermometer_name, deadband, program):
         self.thermometerName = thermometer_name
         self.temperature = 0.0
-        self.setpoint = float(setpoint)
+        self.program = program
         self.deadband = float(deadband)
+        self.setpoint = 20.0
         self.heaterName = get_heater_name(thermometer_name)
         self.heaterIsOn = 0
 
-    def update(self, clientsocket, server_address_port, temp):
+    def update_setpoint(self, time):  # imposta il setpoint in base al giorno e all'ora
+        self.setpoint = self.program[str(time[0])][str(time[1])]
+        # time[0] = giorno, time[1] = ora
+
+    def update(self, clientsocket, server_address_port, temp, time):
+        self.update_setpoint(time)
         self.temperature = float(temp)
         message = "none"
         if (self.setpoint - self.temperature) > self.deadband:  # se la temperatura è troppo bassa
@@ -87,7 +112,7 @@ def initialize_thermostats():
     thermometers_name = list(data.keys())
     thermostats = {}
     for tm in thermometers_name:
-        thermostats[tm] = Thermostat(tm, data.get(tm).get("setpoint"), data.get(tm).get("deadband"))
+        thermostats[tm] = Thermostat(tm, data.get(tm).get("deadband"), data.get(tm).get("program"))
     return thermostats
 
 
@@ -102,9 +127,6 @@ def get_thermometers_name_from_server(client_socket, server_address_port):
             thermometers.append(thermometer_name)
 
     return thermometers
-
-daysInAWeek = 7
-hoursInADay = 24
 
 
 def build_default_thermostat_dict(thermometers):
