@@ -3,10 +3,13 @@ import os
 
 thermometerPrefix = "THERMOMETER"
 heaterPrefix = "HEATER"
+setpointPrefix = "SETPOINT"
 
 thermostatSettingsFile = os.getcwd() + "/config/thermostat-settings.json"
 generalSettingsFile = os.getcwd() + "/config/general-settings.json"
 simulationDataFile = os.getcwd() + "/simulation_data/data.csv"
+
+minSteps = 100  # step minimi necessari affinché i termometri rilevino una temperatura valida
 
 
 def set_heater_power_command(heater, power):
@@ -47,11 +50,17 @@ def get_heater_name(thermometer):  # metodo che ritorna il nome del termosifone 
     return heater
 
 
+def get_setpoint_name(thermometer):  # metodo che ritorna il nome del setpoint a partire dal nome del termometro
+    setpoint = setpointPrefix + thermometer[11:]
+    return setpoint
+
+
 def initialize_data_columns(thermostats):
     columns = ["TIME", "THERMOMETER_EXTERNAL"]
     for ts in thermostats:  # riempie la lista contenente le colonne con i nomi dei termometri e dei termosifoni
         columns.append(thermostats.get(ts).thermometerName)
         columns.append(thermostats.get(ts).heaterName)
+        columns.append(thermostats.get(ts).setpointName)
     return columns
 
 
@@ -71,7 +80,6 @@ def get_time(step, steplength):
     hour = hours_from_start % hoursInADay
 
     time = (day, hour)
-    print(time)
     return time
 
 
@@ -81,6 +89,7 @@ class Thermostat:  # classe che rappresenta il termostato
         self.temperature = 0.0
         self.program = program
         self.deadband = float(deadband)
+        self.setpointName = get_setpoint_name(thermometer_name)
         self.setpoint = 20.0
         self.heaterName = get_heater_name(thermometer_name)
         self.heaterIsOn = 0
