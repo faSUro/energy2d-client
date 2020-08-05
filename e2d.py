@@ -9,8 +9,6 @@ thermostatSettingsFile = os.getcwd() + "/config/thermostat-settings.json"
 generalSettingsFile = os.getcwd() + "/config/general-settings.json"
 simulationDataFile = os.getcwd() + "/simulation_data/data.csv"
 
-minSteps = 100  # step minimi necessari affinché i termometri rilevino una temperatura valida
-
 
 def set_heater_power_command(heater, power):
     return "set " + heater + ".power " + str(power)
@@ -103,7 +101,7 @@ class Thermostat:  # classe che rappresenta il termostato
         self.temperature = float(temp)
         message = "none"
         if (self.setpoint - self.temperature) > self.deadband:  # se la temperatura è troppo bassa
-            message = set_heater_power_command(self.heaterName, power=100)  # comando che accende il termosifone
+            message = set_heater_power_command(self.heaterName, power=200)  # comando che accende il termosifone
             self.heaterIsOn = 10
         elif (self.temperature - self.setpoint) > self.deadband:  # se la temperatura è troppo alta
             message = set_heater_power_command(self.heaterName, power=0)  # comando che spegne il termosifone
@@ -168,3 +166,9 @@ def get_empty_list_of_lists(size):
     for i in range(size):
         list_of_lists.append([])
     return list_of_lists
+
+
+def get_step_progress():
+    settings_file = json.load(open(generalSettingsFile))
+    step_progress = settings_file.get("step_progress")
+    return step_progress

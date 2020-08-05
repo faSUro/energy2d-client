@@ -22,11 +22,12 @@ writer.writeheader()
 
 e2d.send_message(UDPClientSocket, serverAddressPort, e2d.set_steplength_command(args.steplength))  # setta steplength
 e2d.send_message(UDPClientSocket, serverAddressPort, e2d.reset_command())  # resetta la simulazione
-e2d.send_message(UDPClientSocket, serverAddressPort, e2d.runsteps_command(e2d.minSteps))
-# esegue la simulazione per 100 step
-step = e2d.minSteps
+stepProgress = e2d.get_step_progress()
+e2d.send_message(UDPClientSocket, serverAddressPort, e2d.runsteps_command(stepProgress))
+
+step = stepProgress
 while step < args.steps:  # ciclo principale che esegue la simulazione e raccoglie dati
-    e2d.send_message(UDPClientSocket, serverAddressPort, e2d.runsteps_command(str(args.steplength)))
+    e2d.send_message(UDPClientSocket, serverAddressPort, e2d.runsteps_command(str(stepProgress)))
 
     fileRow = {"TIME": step}
     answer = e2d.send_message(UDPClientSocket, serverAddressPort, e2d.get_temperatures_command())
@@ -47,4 +48,4 @@ while step < args.steps:  # ciclo principale che esegue la simulazione e raccogl
                 fileRow["THERMOMETER_EXTERNAL"] = temperature
 
     writer.writerow(fileRow)
-    step += args.steplength
+    step += stepProgress
