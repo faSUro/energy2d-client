@@ -101,7 +101,7 @@ class Thermostat:  # classe che rappresenta il termostato
         self.temperature = float(temp)
         message = "none"
         if (self.setpoint - self.temperature) > self.deadband:  # se la temperatura è troppo bassa
-            message = set_heater_power_command(self.heaterName, power=200)  # comando che accende il termosifone
+            message = set_heater_power_command(self.heaterName, power=100)  # comando che accende il termosifone
             self.heaterIsOn = 10
         elif (self.temperature - self.setpoint) > self.deadband:  # se la temperatura è troppo alta
             message = set_heater_power_command(self.heaterName, power=0)  # comando che spegne il termosifone
