@@ -1,11 +1,10 @@
-import json
 import matplotlib.pyplot as plt
 import csv
 import e2d
 
 thermometers_name = e2d.get_thermometers_name_from_json()
 time = []
-# ext_temperature = []
+ext_temperature = []
 temperatures = e2d.get_empty_list_of_lists(len(thermometers_name))
 heaters = e2d.get_empty_list_of_lists(len(thermometers_name))
 setpoints = e2d.get_empty_list_of_lists(len(thermometers_name))
@@ -19,7 +18,7 @@ for row in plots:  # riempie le liste "time", "temperatures" e "heaters"
         continue
     else:
         time.append(int(row[0]))
-        # ext_temperature.append(float(row[1]))
+        ext_temperature.append(float(row[1]))
         i = 2
         while i < (len(thermometers_name) * 3):
             temperatures[int((i - 2) / 3)].append(float(row[i]))
@@ -29,8 +28,8 @@ for row in plots:  # riempie le liste "time", "temperatures" e "heaters"
 
 for i in range(len(thermometers_name)):
     plt.subplot(4, 4, i+1)
-    plt.plot(time, temperatures[i], label='int')
-    # plt.plot(time, ext_temperature, '--', label='ext')
+    plt.plot(time, ext_temperature, 'y-', label='ext')
+    plt.plot(time, temperatures[i], 'r', label='int')
     plt.plot(time, heaters[i], label='O/I')
     plt.plot(time, setpoints[i], '--', label='sp')
     plt.title(thermometers_name[i])
