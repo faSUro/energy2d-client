@@ -8,6 +8,7 @@ setpointPrefix = "SETPOINT"
 thermostatSettingsFile = os.getcwd() + "/config/thermostat-settings.json"
 generalSettingsFile = os.getcwd() + "/config/general-settings.json"
 simulationDataFile = os.getcwd() + "/simulation_data/data.csv"
+testDataFile = os.getcwd() + "/simulation_data/test-data.csv"
 
 
 def set_heater_power_command(heater, power):
@@ -55,10 +56,18 @@ def get_setpoint_name(thermometer):  # metodo che ritorna il nome del setpoint a
 
 def initialize_data_columns(thermostats):
     columns = ["TIME", "THERMOMETER_EXTERNAL"]
-    for ts in thermostats:  # riempie la lista contenente le colonne con i nomi dei termometri e dei termosifoni
+    for ts in thermostats:  # riempie la lista contenente le colonne con i nomi dei termometri,
+        # dei termosifoni e dei setpoint
         columns.append(thermostats.get(ts).thermometerName)
         columns.append(thermostats.get(ts).heaterName)
         columns.append(thermostats.get(ts).setpointName)
+    return columns
+
+
+def initialize_test_columns(thermometers):
+    columns = ["TIME"]
+    for ts in thermometers:  # riempie la lista contenente le colonne con i nomi dei termometri
+        columns.append(ts)
     return columns
 
 
