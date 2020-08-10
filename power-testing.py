@@ -59,6 +59,14 @@ for row in plots:  # riempie le liste "time", "temperatures" e "heaters"
             temperatures[i - 1].append(float(row[i]))
             i += 1
 
+plt.figure(1)
+for i in range(len(thermometers_name)):
+    plt.subplot(4, 4, i+1)
+    plt.plot(time, temperatures[i], 'r', label='int')
+    plt.title(thermometers_name[i])
+    plt.legend(fontsize=8)
+plt.subplots_adjust(left=0.05, bottom=0.05, right=0.95, top=0.95, wspace=None, hspace=0.35)
+
 time.remove(time[0])
 tempVariations = e2d.get_empty_list_of_lists(len(thermometers_name))
 for i in range(len(thermometers_name)):
@@ -67,11 +75,11 @@ for i in range(len(thermometers_name)):
         tempVariations[i].append(temperatures[i][j] - temperatures[i][j - 1])
         j += 1
 
+plt.figure(2)
 for i in range(len(thermometers_name)):
     plt.subplot(4, 4, i+1)
     plt.plot(time, tempVariations[i])
     plt.title(thermometers_name[i])
-
 plt.subplots_adjust(left=0.05, bottom=0.05, right=0.95, top=0.95, wspace=None, hspace=0.35)
 
 plt.show()
