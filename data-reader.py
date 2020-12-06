@@ -3,9 +3,9 @@ import csv
 import e2d
 import argparse
 
-parser = argparse.ArgumentParser(description="Script per la visualizzazione dei dati prodotti durante la simulazione")
-parser.add_argument("floors", type=int, help="Numero di piani dell'edificio")
-parser.add_argument("rooms", type=int, help="Appartamenti per piano")
+parser = argparse.ArgumentParser(description="Script for displaying the data produced during the simulation")
+parser.add_argument("rows", type=int, help="Number of rows displayed")
+parser.add_argument("columns", type=int, help="Number of columns displayed")
 args = parser.parse_args()
 
 thermometers_name = e2d.get_thermometers_name_from_json()
@@ -33,7 +33,7 @@ for row in plots:  # riempie le liste "time", "temperatures" e "heaters"
             i += 3
 
 for i in range(len(thermometers_name)):
-    plt.subplot(args.floors, args.rooms, i+1)
+    plt.subplot(args.rows, args.columns, i+1)
     plt.plot(time, ext_temperature, 'y-', label='ext')
     plt.plot(time, temperatures[i], 'r', label='int')
     plt.plot(time, heaters[i], label='O/I')
