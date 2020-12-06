@@ -13,5 +13,5 @@ E.g.: If you start the script with the arguments 100800 and 6, you'll get a simu
 
 ### Visualize the data
 
-Finally, you can see the data produced by the simulation thanks to _data-reader.py_. In order to correctly show the data, the script requires one argument: the total amount of apartments inside the building.
-You'll see one graphic for every apartment containing: the setpoint temperature for that apartment at any given time, the actual temperature, the external temperature and whether the heater is on or off (10 means on, 0 means off).
+Finally, you can see the data produced by the simulation thanks to _data-reader.py_. In order to correctly show the data, the script requires two arguments: the number of rows and the number of graphs per row you want to see.
+You'll see one graph for every apartment containing: the setpoint temperature for that apartment at any given time, the actual temperature, the external temperature and whether the heater is on or off (10 means on, 0 means off).
