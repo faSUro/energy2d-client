@@ -3,10 +3,10 @@ import csv
 import socket
 import e2d
 
-parser = argparse.ArgumentParser(description="Client per l'avvio di una simulazione Energy2D  e l'acquisizione dei "
-                                             "dati generati")
-parser.add_argument("steps", type=int, help="Quantità di step da simulare")
-parser.add_argument("steplength", type=int, help="Durata di uno step nella simulazione in secondi")
+parser = argparse.ArgumentParser(description="Client to start an Energy2D simulation and to acquire "
+                                             "the generated data")
+parser.add_argument("steps", type=int, help="Quantity of steps to simulate")
+parser.add_argument("steplength", type=int, help="Duration of a step in simulated seconds")
 args = parser.parse_args()
 
 
